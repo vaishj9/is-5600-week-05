@@ -50,8 +50,8 @@ async function getProduct(req, res, next) {
  * @param {object} res 
  */
 async function createProduct(req, res) {
-  console.log('request body:', req.body)
-  res.json(req.body)
+  const product = await Products.create(req.body)
+  res.json(product)
 }
 
 /**
@@ -60,9 +60,9 @@ async function createProduct(req, res) {
  * @param {object} res
  * @param {function} next
  */
-async function editProduct(req, res, next) {
-  console.log(req.body)
-  res.json(req.body)
+async function editProduct(req, res) {
+  const product = await Products.edit(req.params.id, req.body)
+  res.json(product)
 }
 
 /**
@@ -71,8 +71,9 @@ async function editProduct(req, res, next) {
  * @param {*} res 
  * @param {*} next 
  */
-async function deleteProduct(req, res, next) {
-  res.json({ success: true })
+async function deleteProduct(req, res) {
+  const result = await Products.destroy(req.params.id)
+  res.json(result)
 }
 
 module.exports = autoCatch({
